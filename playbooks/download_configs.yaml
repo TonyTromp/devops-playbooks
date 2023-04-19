@@ -5,7 +5,7 @@
     - file:
         path: '../config/{{ target }}'
         state: directory
-        mode: 0755
+        mode: 755
 
 - hosts: '{{target}}'
   gather_facts: no
@@ -19,14 +19,9 @@
           - "--include=*/"
           - "--include=*.yaml"
           - "--exclude=*"
-#          - "--exclude=.git"
-#          - "--exclude=archive"
-#          - "--exclude=*backup*"
-#          - "--exclude=data"
-#          - "--exclude=data_*"
-#          - "--exclude=samples"
-#          - "--exclude=themes"
-#          - "--exclude=istio-*"
+          - "--exclude=.git"
+          - "--exclude=mnesia"
+#          - "--exclude=log"
 #          - "--exclude=*.gz"
 #          - "--exclude=*.zip"
 #          - "--exclude=*.tar"
