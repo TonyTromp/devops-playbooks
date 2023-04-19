@@ -1,0 +1,122 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+#camera:
+#  - platform: generic
+#    name: Wyze2.LivingRoom
+#    username: root
+#    password: ismart12
+#    authentication: basic
+#    still_image_url: https://dafang.home/cgi-bin/currentpic.cgi
+#    verify_ssl: false
+#    scan_interval: 5
+
+#camera:
+#  - platform: ffmpeg
+#    name: Wyze2.LivingRoom.RTSP
+#    input: -rtsp_transport tcp -i rtsp://dafang.home:8554/unicast
+
+# Themes
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+input_select:
+  themes:
+    name: 'Themes'
+    icon: mdi:format-paint
+    options:
+      - Caule Black Rose
+      - Caule Black Purple
+      - Caule Black Blue 
+      - Caule Black Aqua
+      - Caule Black Green
+      - Caule Black Yellow
+      - Caule Black Orange
+      - Caule Black Coral
+      - Caule Black Pink
+      - Caule Black Gray
+      - Caule Dark Rose
+      - Caule Dark Purple
+      - Caule Dark Blue 
+      - Caule Dark Aqua
+      - Caule Dark Green
+      - Caule Dark Yellow
+      - Caule Dark Orange
+      - Caule Dark Coral
+      - Caule Dark Pink
+      - Caule Dark Gray
+      - Caule Light Rose
+      - Caule Light Purple
+      - Caule Light Blue 
+      - Caule Light Aqua
+      - Caule Light Green
+      - Caule Light Yellow
+      - Caule Light Orange
+      - Caule Light Coral
+      - Caule Light Pink
+      - Caule Light Gray
+      - Caule Black Rose Glass
+      - Caule Black Purple Glass
+      - Caule Black Blue Glass 
+      - Caule Black Aqua Glass
+      - Caule Black Green Glass
+      - Caule Black Yellow Glass
+      - Caule Black Orange Glass
+      - Caule Black Coral Glass
+      - Caule Black Pink Glass
+      - Caule Black Gray Glass      
+      - Default
+
+#Failed to call service homeassistant/reload_all. Cannot quick reload all YAML configurations because the configuration is not valid: Invalid config for [panel_iframe]: Icons should be specified in the form "prefix:name" for dictionary value @ data['panel_iframe']['portainer']['icon']. Got 'mdi-docker'. (See /config/configuration.yaml, line 70).
+
+
+# Example configuration.yaml entry
+panel_iframe:
+  plex:
+    title: "Plex"
+    url: "http://10.0.0.88:32400/web/"
+    icon: mdi:plex
+  adguard:
+    title: "AdGuard"
+    url: "http://adguard.home/"
+    icon: mdi:police-badge
+  emqx:
+    title: "EMQX Dashboard"
+    url: "http://node1.emqx.io:18083/"
+    icon: mdi:iobroker
+  portainer:
+    title: "Portainer"
+    url: "http://10.0.0.88:9000/"
+    icon: mdi:docker
+  zigbee2mqtt:
+    title: "Zigbee2MQTT"
+    url: "http://10.0.0.42:8080/"
+    icon: mdi:zigbee
+
+resources:
+  - url: /local/mini-graph-card-bundle.js?v=0.11.0
+    type: module
+
+monitor_docker:
+  - name: Docker
+    containers:
+      - adguardhome
+      - portainer
+      - unifi
+    monitored_conditions:
+      - version
+      - containers_running
+      - containers_total
+      - state
+      - status
+      - memory

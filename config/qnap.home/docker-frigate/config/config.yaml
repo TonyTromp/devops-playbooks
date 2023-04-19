@@ -1,0 +1,77 @@
+# https://docs.frigate.video/configuration/
+mqtt:
+  host: node1.emqx.io
+
+cameras:
+  wyze_v2:
+    ffmpeg:
+      hwaccel_args: -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 
+      inputs:
+        - path: rtsp://dafang.home:8554/unicast
+          roles:
+            - detect
+            - record
+            - clips
+    detect:
+      width: 1280
+      height: 720
+    objects:
+      track:
+        - person  
+      filters:
+        person:
+          min_ratio: 0.7
+  zero2:
+    ffmpeg:
+      hwaccel_args: -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 
+      inputs:
+        - path: rtsp://zero2.home:8554/unicast
+          roles:
+            - detect
+    detect:
+      width: 1280
+      height: 720
+    objects:
+      track:
+        - person  
+        - cup
+        - cell phone
+#        - cat
+        - laptop
+#        - tv
+#        - book
+#        - scissors
+#        - potted plant
+#        - couch
+#        - chair
+
+snapshots:
+  enabled: True
+  timestamp: False
+  bounding_box: False
+  retain:
+    default: 1
+
+record:
+  enabled: True
+  retain:
+    days: 7
+    mode: all
+  events:
+    retain:
+      default: 7
+      mode: active_objects
+detect:
+  width: 1280
+  height: 720
+  fps: 10
+
+detectors:
+  coral:
+    type: edgetpu
+    device: usb
+
+#  cpu1:
+#    type: cpu
+#  cpu2:
+#    type: cpu

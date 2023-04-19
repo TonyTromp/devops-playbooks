@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  double-take:
+    container_name: double-take
+    image: jakowenko/double-take
+    restart: unless-stopped
+    dns:
+      - 10.0.2.22
+      - 10.0.0.22
+    volumes:
+      - ./data:/.storage
+    ports:
+      - 3000:3000
+
+    networks:
+      # IOT LAN needs to resolve MQTT
+      default:
+      macvlan20:
+        ipv4_address: 10.0.2.28
+
+networks:
+  macvlan20:
+    name: macvlan20
+    external: true

@@ -1,0 +1,45 @@
+binary_sensor.warm_water_power:
+  hidden: true
+binary_sensor.warm_water_link:
+  hidden: true
+binary_sensor.warm_water_overlay:
+  hidden: true
+sensor.warm_water_tado_mode:
+  hidden: true
+water_heater.warm_water:
+  hidden: true
+binary_sensor.va2036010240_battery_state:
+  hidden: true
+binary_sensor.va2036010240_connection_state:
+  hidden: true
+binary_sensor.living_room_power:
+  hidden: true
+binary_sensor.living_room_link:
+  hidden: true
+binary_sensor.living_room_overlay:
+  hidden: true
+binary_sensor.living_room_early_start:
+  hidden: true
+device_tracker.ubnt_w6pro_hal:
+  hidden: true
+device_tracker.ubnt_nano_woonkamer:
+  hidden: true
+device_tracker.ubnt_woonkamer_switch:
+  hidden: true
+update.ubnt_w6pro_hal:
+  hidden: true
+update.ubnt_nano_woonkamer:
+  hidden: true
+update.ubnt_woonkamer_switch:
+  hidden: true
+sensor.living_room_temperature:
+  grouped_sort_order: 1
+  favorite: true
+sensor.living_room_humidity:
+  grouped_sort_order: 2
+sensor.living_room_heating:
+  grouped_sort_order: 3
+sensor.living_room_tado_mode:
+  grouped_sort_order: 4
+device_tracker.samsung:
+  grouped_sort_order: 1

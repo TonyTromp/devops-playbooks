@@ -1,0 +1,33 @@
+# Create local path to download configuration if not exists
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - file:
+        path: '../config/{{ target }}'
+        state: directory
+        mode: 0755
+
+- hosts: '{{target}}'
+  gather_facts: no
+#  become: true
+  tasks:
+    - synchronize:
+        src:  "{{ deploy_to }}"
+        dest: "../config/{{ target }}"
+        mode: pull
+        rsync_opts:
+          - "--include=*/"
+          - "--include=*.yaml"
+          - "--exclude=*"
+#          - "--exclude=.git"
+#          - "--exclude=archive"
+#          - "--exclude=*backup*"
+#          - "--exclude=data"
+#          - "--exclude=data_*"
+#          - "--exclude=samples"
+#          - "--exclude=themes"
+#          - "--exclude=istio-*"
+#          - "--exclude=*.gz"
+#          - "--exclude=*.zip"
+#          - "--exclude=*.tar"
+

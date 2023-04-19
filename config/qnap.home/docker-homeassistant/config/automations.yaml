@@ -1,0 +1,77 @@
+- id: '1681212800534'
+  alias: Daily Backup
+  description: ''
+  trigger:
+  - platform: time
+    at: '14:00:00'
+  condition: []
+  action:
+  - service: backup.create
+    data: {}
+  mode: single
+- id: '1681304149308'
+  alias: MQTT Motion Detected
+  description: ''
+  trigger:
+  - platform: mqtt
+    topic: Hall/dafang/motion/detection
+  condition: []
+  action:
+  - service: browser_mod.popup
+    data:
+      dismissable: true
+      autoclose: false
+      title: Hello
+      content:
+        show_state: true
+        show_name: true
+        camera_view: live
+        type: picture-entity
+        entity: switch.p1_meter_3c39e72bde78_cloud_connection
+        image: https://demo.home-assistant.io/stub_config/bedroom.png
+        camera_image: camera.dafang_home_2
+  - service: notify.mobile_app_fold_3
+    data:
+      message: Motion Happened
+    enabled: false
+  mode: single
+- id: '1681316028461'
+  alias: Dafang - Motion Detected
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 6f5fa088537e7a1408f5dbbfd2c01add
+    entity_id: binary_sensor.dafang_motion_sensor
+    domain: binary_sensor
+    enabled: false
+  - type: motion
+    platform: device
+    device_id: 9dab5cdfb599657ebc467dc745ebeeda
+    entity_id: binary_sensor.80d399ad_015ef1cb
+    domain: binary_sensor
+    enabled: false
+  - type: motion
+    platform: device
+    device_id: 86bb5ffe582718548b273492c9f75c4e
+    entity_id: binary_sensor.wyze_v2_motion
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: browser_mod.popup
+    data:
+      dismissable: true
+      content:
+        type: picture-glance
+        show_state: true
+        show_name: true
+        camera_view: live
+        title: Camera
+        image: https://demo.home-assistant.io/stub_config/kitchen.png
+        entities:
+        - entity: switch.dafang_night_mode
+        - entity: switch.dafang_recording
+        - entity: switch.dafang_motion_detection
+        camera_image: camera.dafang_home_2
+    enabled: true
+  mode: single
